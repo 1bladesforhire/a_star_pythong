@@ -1,0 +1,62 @@
+import numpy
+from heapq import *
+from queue import *
+#use Euclidean distance
+def heuristic(a, goal):
+    return  (a[0]-goal[0])**2 + (a[1] - goal[1])**2 
+
+
+def shortest_path(graph, start, goal):                
+    #print(graph.intersections)
+    #print(graph.roads)
+    #print (heuristic(graph.intersections[5], graph.intersections[32]))
+    intersections = graph.intersections
+    roads = graph.roads
+    
+    #first intersection
+    frontier = []
+    heappush(frontier, (fscore, start))
+    
+    next_intersection = start
+
+    path =[]
+    path.append(start)
+    visited = []
+    
+    # get the intersections
+    while frontier:
+        current_g_distance = roads[next_intersection][0]
+        shortest = roads[next_intersection][0]
+
+        for neighbors in roads[next_intersection]:
+            ##check if we already visited this intersection
+            if neighbors not in visited:
+                ##if not visited see which one is closest to the goal
+                points = intersections[neighbors]
+                goal_points = intersections[goal]
+                current_points = intersections[shortest]
+                ##same as shortest?
+                current_g_distance = roads[next_intersection][0]
+
+        #             # get the location for the intersections
+                    ## rename the variables, and use heappush? 
+                    ## then something about a parent list?
+                    ##
+                    if new_g_distance < current_g_distance:
+                       gscore[neighbor] = new_g_distance
+                       heappush(frontier, (fscore, neighbor))
+                       parent[neighbor] = best
+#                 if heuristic(points, goal_points) < heuristic(current_points, goal_points):
+#                     shortest = neighbor
+                  parent[neighbor] = best
+                #add to the list we have visited
+                visited.append(i)
+        # add the shortest section to the path
+        path.append(shortest)
+        
+#         # set it as next intersection
+        next_intersection = shortest
+        
+    
+
+    return path
